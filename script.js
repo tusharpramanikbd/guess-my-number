@@ -5,6 +5,8 @@ const guessInput = document.querySelector(".guess");
 const messageText = document.querySelector(".message");
 const scoreText = document.querySelector(".score");
 const againBtn = document.querySelector(".again");
+const body = document.querySelector("body");
+const hiddenNumber = document.querySelector(".number");
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
@@ -22,6 +24,11 @@ const handleResetGame = () => {
   messageText.textContent = "Start guessing...";
 
   guessInput.value = "";
+
+  body.style.backgroundColor = "#222";
+
+  hiddenNumber.textContent = "?";
+  hiddenNumber.style.width = "15rem";
 };
 
 const handleNumberInput = () => {
@@ -39,19 +46,24 @@ const handleNumberInput = () => {
     messageText.textContent = "🔞 Invalid Number!!!";
   } else if (inputValue === secretNumber) {
     messageText.textContent = "🎉 Correct Number!!!";
+    body.style.backgroundColor = "#60b347";
+    hiddenNumber.textContent = secretNumber;
+    hiddenNumber.style.width = "30rem";
   } else if (inputValue > secretNumber) {
-    if (score >= 0) {
+    if (score > 1) {
       messageText.textContent = "📈 Too High!!!";
       decreaseScore();
     } else {
       messageText.textContent = "👎 You Lost The Game!!!";
+      scoreText.textContent = 0;
     }
   } else if (inputValue < secretNumber) {
-    if (score >= 0) {
+    if (score > 1) {
       messageText.textContent = "📉 Too Low!!!";
       decreaseScore();
     } else {
       messageText.textContent = "👎 You Lost The Game!!!";
+      scoreText.textContent = 0;
     }
   }
 };
