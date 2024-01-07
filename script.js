@@ -7,9 +7,11 @@ const scoreText = document.querySelector(".score");
 const againBtn = document.querySelector(".again");
 const body = document.querySelector("body");
 const hiddenNumber = document.querySelector(".number");
+const highScoreText = document.querySelector(".highscore");
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
+let highScore = 0;
 
 const decreaseScore = () => {
   score--;
@@ -49,6 +51,11 @@ const handleNumberInput = () => {
     body.style.backgroundColor = "#60b347";
     hiddenNumber.textContent = secretNumber;
     hiddenNumber.style.width = "30rem";
+
+    if (score > highScore) {
+      highScore = score;
+      highScoreText.textContent = highScore;
+    }
   } else if (inputValue > secretNumber) {
     if (score > 1) {
       messageText.textContent = "📈 Too High!!!";
